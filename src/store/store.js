@@ -1,25 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import authSlice from './authSlice';
 
-const initialState = {
-  status: false,
-  userData: null,
-};
+const store = configureStore({
+    reducers:{
+        auth:authSlice
+    }
+})
 
-const authSlice = configureStore({
-  name: "auth",
-  initialState,
-  reducers: {
-    login: (state, action) => {
-      state.status = true;
-      state.userData = action.payload.userData;
-    },
-
-    logout: (status) => {
-      state.status = false;
-      state.userData = null;
-    },
-  },
-});
-
-export const { login, logout } = authSlice.actions;
-export default authSlice.reducer;
+export default store;
