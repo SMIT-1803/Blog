@@ -18,8 +18,11 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(authLogin(userData));
+        if (userData) dispatch(authLogin({userData:userData}));
         navigate("/");
+      }
+      else{
+        setError("Account not found please Sign Up")
       }
     } catch (error) {
       setError(error.message);
@@ -67,7 +70,9 @@ function Login() {
               label="Password"
               placeholder="Enter your Password"
               type="password"
-              {...register("password")}
+              {...register("password",{
+                required:true
+              })}
             />
             <Button type="submit" className="w-full">
               Sign in
