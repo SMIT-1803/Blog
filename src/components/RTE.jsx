@@ -16,6 +16,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         render={({ field: { onChange, value } }) => (
           <div className="border border-gray-300 rounded-lg overflow-hidden">
             <Editor
+              apiKey="nwpln26zvq4ibplm8z8x7zb9ylzgqa1liztt4gfa5jmuz0p6"
               value={value || defaultValue}
               init={{
                 height: 300,
