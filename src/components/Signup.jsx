@@ -15,16 +15,11 @@ function Signup() {
   const create = async (data) => {
     setError("");
     try {
-      const checkUserExists = await authService.login(data);
-      if (checkUserExists) {
-        setError("Account already exists Please Login");
-      } else {
-        const createAccount = await authService.createAccount(data);
-        if (createAccount) {
-          const userData = await authService.getCurrentUser();
-          if (userData) dispatch(login({ userData: userData }));
-          navigate("/");
-        }
+      const createAccount = await authService.createAccount(data);
+      if (createAccount) {
+        const userData = await authService.getCurrentUser();
+        if (userData) dispatch(login({ userData: userData }));
+        navigate("/");
       }
     } catch (error) {
       setError(error.message);
