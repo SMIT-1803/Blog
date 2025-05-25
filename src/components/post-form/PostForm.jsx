@@ -62,7 +62,6 @@ export default function PostForm({ post }) {
         .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
-
     return "";
   }, []);
 
@@ -72,43 +71,46 @@ export default function PostForm({ post }) {
         setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
-
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
+    <form
+      onSubmit={handleSubmit(submit)}
+      className="flex flex-wrap bg-white p-6 rounded-xl shadow-md space-y-6 md:space-y-0 md:space-x-6"
+    >
+      <div className="w-full md:w-2/3 space-y-4">
         <Input
-          label="Title :"
-          placeholder="Title"
+          label="Title"
+          placeholder="Enter title"
           className="mb-4"
           {...register("title", { required: true })}
         />
         <Input
-          label="Slug :"
-          placeholder="Slug"
+          label="Slug"
+          placeholder="auto-generated slug"
           className="mb-4"
           {...register("slug", { required: true })}
           onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
+            setValue("slug", slugTransform(e.target.value), {
               shouldValidate: true,
             });
           }}
         />
         <RTE
-          label="Content :"
+          label="Content"
           name="content"
           control={control}
           defaultValue={getValues("content")}
         />
       </div>
-      <div className="w-1/3 px-2">
+
+      <div className="w-full md:w-1/3 space-y-4">
         <Input
-          label="Featured Image :"
+          label="Featured Image"
           type="file"
-          className="mb-4"
           accept="image/png, image/jpg, image/jpeg, image/gif"
+          className="mb-2"
           {...register("image", { required: !post })}
         />
         {post && (
@@ -116,7 +118,7 @@ export default function PostForm({ post }) {
             <img
               src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
-              className="rounded-lg"
+              className="w-full h-32 object-cover rounded-lg shadow-sm"
             />
           </div>
         )}
@@ -128,10 +130,10 @@ export default function PostForm({ post }) {
         />
         <Button
           type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
+          bgColor={post ? "bg-green-500" : "bg-blue-600"}
           className="w-full"
         >
-          {post ? "Update" : "Submit"}
+          {post ? "Update Post" : "Create Post"}
         </Button>
       </div>
     </form>

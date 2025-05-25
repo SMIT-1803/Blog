@@ -21,19 +21,25 @@ function App() {
         }
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [dispatch]);
 
-  return !loading ? (
-    <div className="min-h-screen flex flex-wrap justify-center content-between bg-gray-400">
-      <div className="w-full ">
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <span className="text-gray-500">Loading…</span>
       </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+      <Header />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+      <Footer />
     </div>
-  ) : null;
+  );
 }
 
 export default App;

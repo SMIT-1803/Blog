@@ -4,22 +4,20 @@ import appwriteService from "../appwrite/config";
 
 function AllPosts() {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
-    appwriteService.getPosts([]).then((posts) => {
-      if (posts) {
-        setPosts(posts.documents);
-      }
+    appwriteService.getPosts([]).then((res) => {
+      if (res) setPosts(res.documents);
     });
   }, []);
 
   return (
-    <div className="w-full py-8">
+    <div className="min-h-screen bg-gray-50 py-12">
       <Container>
-        <div className="flex flex-wrap">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">All Posts</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
-              <PostCard {...post} />
-            </div>
+            <PostCard key={post.$id} {...post} />
           ))}
         </div>
       </Container>

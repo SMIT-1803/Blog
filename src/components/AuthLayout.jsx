@@ -16,5 +16,12 @@ export default function Protected({ children, authentication = true }) {
     setLoader(false);
   }, [authStatus, navigate, authentication]);
 
-  return loader ? <h1>Loading...</h1> : <>{children}</>;
+  if (loader) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-50">
+        <span className="text-xl font-medium text-gray-500">Loading…</span>
+      </div>
+    );
+  }
+  return <>{children}</>;
 }

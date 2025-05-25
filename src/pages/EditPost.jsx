@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, PostForm } from "../components/index";
+import { Container, PostForm } from "../components";
 import appwriteService from "../appwrite/config";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -9,24 +9,23 @@ function EditPost() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (slug) {
-      appwriteService.getPost(slug).then((post) => {
-        if (post) {
-          setPost(post);
-        }
-      });
-    } else {
-      navigate("/");
-    }
+    if (!slug) return navigate("/");
+    appwriteService.getPost(slug).then((data) => {
+      if (data) setPost(data);
+      else navigate("/");
+    });
   }, [slug, navigate]);
 
-  return post?(
-    <div className="py-8">
-        <Container>
-            <PostForm post={post}/>
-        </Container>
+  if (!post) return null;
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-12">
+      <Container>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Edit Post</h1>
+        <PostForm post={post} />
+      </Container>
     </div>
-  ) :null
+  );
 }
 
 export default EditPost;
