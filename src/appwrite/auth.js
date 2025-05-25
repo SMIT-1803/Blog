@@ -27,7 +27,7 @@ export class AuthService {
         return userAccount;
       }
     } catch (error) {
-      return error
+      return error;
     }
   }
 
@@ -35,7 +35,7 @@ export class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      return error
+      return error;
     }
   }
 
@@ -43,9 +43,12 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      console.log("Appwrite error::getCurrentUser::error", error);
+      // Only log unexpected errors
+      if (error.code !== 401) {
+        console.error("Appwrite error::getCurrentUser::error", error);
+      }
+      return null;
     }
-    return null;
   }
 
   async logout() {

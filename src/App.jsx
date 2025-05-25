@@ -20,6 +20,10 @@ function App() {
           dispatch(logout());
         }
       })
+      .catch((err) => {
+        console.error("Unexpected error while getting current user:", err);
+        dispatch(logout());
+      })
       .finally(() => setLoading(false));
   }, [dispatch]);
 
