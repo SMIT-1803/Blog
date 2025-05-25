@@ -12,8 +12,9 @@ import AllPosts from "./pages/AllPosts";
 import EditPost from "./pages/EditPost";
 import AddPost from "./pages/AddPost";
 import Post from "./pages/Post";
-import Home from "./pages/Home.jsx"
 import Signup from "./pages/Signup.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <PrivateRoute/>,
       },
       {
         path: "/login",
