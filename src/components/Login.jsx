@@ -17,16 +17,19 @@ function Login() {
     try {
       const session = await authService.login(data);
       console.log(session)
-      if (session.id) {
+      if (session.$id) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin({userData:userData}));
         navigate("/");
+        console.log("Went past")
       }
       else{
         setError(session.message)
+        console.log("Else ma")
       }
     } catch (error) {
       setError(error.message);
+      console.log("catch ma")
     }
   };
 
