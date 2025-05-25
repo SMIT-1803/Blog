@@ -16,13 +16,14 @@ function Login() {
     setError("");
     try {
       const session = await authService.login(data);
-      if (session) {
+      console.log(session)
+      if (session.id) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin({userData:userData}));
         navigate("/");
       }
       else{
-        setError("Account not found please Sign Up")
+        setError(session.message)
       }
     } catch (error) {
       setError(error.message);
