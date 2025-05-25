@@ -16,10 +16,13 @@ function Signup() {
     setError("");
     try {
       const createAccount = await authService.createAccount(data);
-      if (createAccount) {
+      if (createAccount.id) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(login({ userData: userData }));
         navigate("/");
+      }
+      else{
+        setError(createAccount.message+" Please Login.")
       }
     } catch (error) {
       setError(error.message);
