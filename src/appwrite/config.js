@@ -116,7 +116,6 @@ export class Service {
   }
 
   getFilePreview(fileId) {
-    // The function is not needed to be async because the response is very fast. If made async still nothing wrong.
     return this.bucket.getFileView(conf.appwriteBucketId, fileId);
   }
 }
